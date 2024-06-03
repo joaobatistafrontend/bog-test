@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ post.title }}</title>
+</head>
+<body>
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.content|linebreaksbr }}</p>
+    <p><small>by {{ post.author }} on {{ post.created_at }}</small></p>
+
+    <h2>Comments</h2>
+    {% for comment in comments %}
+        <p>{{ comment.content|linebreaksbr }}</p>
+        <p><small>by {{ comment.author }} on {{ comment.created_at }}</small></p>
+    {% endfor %}
+
+    <h2>Add a new comment</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Comment</button>
+    </form>
+
+    <a href="{% url 'post_list' %}">Back to posts</a>
+</body>
+</html>
